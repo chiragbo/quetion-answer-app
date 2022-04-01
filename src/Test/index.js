@@ -1,66 +1,72 @@
 import React, { useState } from "react";
 import Timer from "../Timer";
-import Resutl from "../Result";
 import { useSelector } from "react-redux";
 import "./index.css";
+import { Link } from "react-router-dom";
+import Question from "../Question";
+import Option from "../Option";
+import ButtonController from "../ButtonController";
 const Test = () => {
   const [questionIndex, setQuestionNo] = useState(0);
-  const [answer, setAnswer] = useState([]);
-  const [allAnswer, setallAnswer] = useState([]);
+  const [answer, setAnswer] = useState(null);
+  const [allAnswer, setAllAnswer] = useState([]);
   const questions = useSelector((state) => state.question);
 
   function nextQuetion() {
     setQuestionNo(questionIndex + 1);
-    setallAnswer([...allAnswer, { ...answer }]);
-    console.log(allAnswer);
+    answer === null
+      ? setAllAnswer([
+          ...allAnswer,
+          {
+            questionNo: questionIndex + 1,
+            question: questions[questionIndex].question,
+            correctAnswer: questions[questionIndex].answer,
+            answer: "NA",
+          },
+        ])
+      : setAllAnswer([...allAnswer, { ...answer }]);
+    setAnswer(null);
   }
-  function handleChange(event, questionNo) {
-    setAnswer({ questionNo, answer: event.target.value });
+  function handleChange(event, questionNo, question, correctAnswer) {
+    setAnswer({
+      questionNo,
+      question,
+      correctAnswer,
+      answer: getAnswerKey(event.target.value),
+    });
     console.log(answer);
+  }
+  function getAnswerKey(ans) {
+    return Object.keys(questions[questionIndex].options).find(
+      (key) => questions[questionIndex].options[key] === ans
+    );
   }
   return (
     <div>
       {questions.length === questionIndex ? (
-        <div>
-          <Resutl />
-        </div>
+        <Link to="/result" state={allAnswer}>
+          <button className="result-button">View Result</button>
+        </Link>
       ) : (
-        <>
+        <div className="test">
           <Timer
             initialMinute={1}
             initialSeconds={0}
             nextQuetion={nextQuetion}
             questionNo={questionIndex}
           ></Timer>
-          <div>
-            <div>{questions[questionIndex].question}</div>
-            <div>
-              {questions[questionIndex].options.map((option) => {
-                return (
-                  <div className="test-option">
-                    <input
-                      key={questionIndex}
-                      type="radio"
-                      name={questionIndex}
-                      value={option}
-                      onChange={(event) =>
-                        handleChange(event, questionIndex + 1)
-                      }
-                    ></input>
-                    {option}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-          <div>
-            {questions.length === questionIndex + 1 ? (
-              <button onClick={nextQuetion}>Submit</button>
-            ) : (
-              <button onClick={nextQuetion}>Next</button>
-            )}
-          </div>
-        </>
+          <Question question={questions[questionIndex].question} />
+          <Option
+            questions={questions}
+            questionIndex={questionIndex}
+            handleChange={handleChange}
+          />
+          <ButtonController
+            questions={questions}
+            questionIndex={questionIndex}
+            nextQuetion={nextQuetion}
+          />
+        </div>
       )}
     </div>
   );
