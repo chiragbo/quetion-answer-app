@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Test from "../Test";
+import { Link } from "react-router-dom";
 import "./index.css";
 import { connect } from "react-redux";
 
@@ -11,7 +11,7 @@ export const Login = () => {
     setsessionName(name);
   }
 
-  return sessionName === "" ? (
+  return (
     <div className="login">
       <h2>Question And Answer</h2>
       <input
@@ -19,10 +19,10 @@ export const Login = () => {
         type="input"
         onChange={(e) => setName(e.target.value)}
       ></input>
-      <button onClick={() => startTest()}>Start Test</button>
+      <Link to="/test">
+        <button onClick={() => startTest()}>Start Test</button>
+      </Link>
     </div>
-  ) : (
-    <Test></Test>
   );
 };
 
