@@ -4,7 +4,7 @@ import "./index.css";
 import { Link } from "react-router-dom";
 import questions from "./questions.json";
 import Question from "../Question";
-import Option from "../Option";
+import Options from "../Options";
 import ButtonController from "../ButtonController";
 import ResutlChart from "../ResutlChart";
 const Test = () => {
@@ -12,7 +12,7 @@ const Test = () => {
   const [answer, setAnswer] = useState(null);
   const [allAnswer, setAllAnswer] = useState([]);
 
-  function nextQuetion() {
+  function nextQuestion() {
     setQuestionNo(questionIndex + 1);
     answer === null
       ? setAllAnswer([
@@ -34,32 +34,30 @@ const Test = () => {
       correctAnswer: questions[questionIndex].answer,
       answer: event.target.value,
     });
-    console.log(answer);
   }
 
   return (
     <div>
       {questions.length === questionIndex ? (
-        // {/* <button className="result-button">View Result</button> */}
         <ResutlChart allAnswer={allAnswer}></ResutlChart>
       ) : (
         <div className="test">
           <Timer
             initialMinute={1}
             initialSeconds={0}
-            nextQuetion={nextQuetion}
+            nextQuetion={nextQuestion}
             questionNo={questionIndex}
           ></Timer>
           <Question question={questions[questionIndex].question} />
-          <Option
+          <Options
             questionIndex={questionIndex}
             options={questions[questionIndex].options}
             handleChange={handleChange}
           />
           <ButtonController
-            questions={questions}
+            noOfQuestions={questions.length}
             questionIndex={questionIndex}
-            nextQuetion={nextQuetion}
+            nextQuetion={nextQuestion}
           />
         </div>
       )}

@@ -30,5 +30,75 @@
         "d": "var obj = new Object();"
       },
       "answer": "c"
+    },
+    {
+      "questionNo":5,
+      "question":"5) Which of the following is NOT a correct way of declaring an array in JavaScript?",
+      "options": {
+        "a": "var arr=[1,'Two',3,4]",
+        "b": "var arr = new Array()",
+        "c": "var[] arr = new Number()[5]",
+        "d": "None of the above"
+      },
+      "answer": "c"
+    }
+    ,
+    {
+      "questionNo":6,
+      "question":"6) Which event occurs when the user clicks on an HTML element?",
+      "options": {
+        "a": "onclick",
+        "b": "onmouseover",
+        "c": "onchange",
+        "d": "onmouseclick"
+      },
+      "answer": "a"
+    }
+    ,
+    {
+      "questionNo":7,
+      "question":"7) Which event occurs when the user clicks on an HTML element?",
+      "options": {
+        "a": "*",
+        "b": "=",
+        "c": "==",
+        "d": "-"
+      },
+      "answer": "b"
+    }
+    ,
+    {
+      "questionNo":8,
+      "question":"8) What will the following code return: Boolean(10 > 9)",
+      "options": {
+        "a": "true",
+        "b": "NaN",
+        "c": "fasle",
+        "d": "-1"
+      },
+      "answer": "a"
+    }
+    ,
+    {
+      "questionNo":9,
+      "question":"9) How do you round the number 7.25, to the nearest integer?",
+      "options": {
+        "a": "Math.round(7.25)",
+        "b": "round(7.25)",
+        "c": "rnd(7.25)",
+        "d": "Math.rnd(7.25)"
+      },
+      "answer": "a"
+    },
+    {
+      "questionNo":10,
+      "question":"10) How does a FOR loop start?",
+      "options": {
+        "a": "for i = 1 to 5",
+        "b": "for (i <= 5; i++)",
+        "c": "for (i = 0; i <= 5)",
+        "d": "for (i = 0; i <= 5; i++)"
+      },
+      "answer": "d"
     }
   ]
