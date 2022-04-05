@@ -1,11 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import questions from "../Test/questions.json";
+
 import { useLocation } from "react-router";
 import "./index.css";
 const Resutl = () => {
   const [resutl, setResult] = useState([]);
-  const questions = useSelector((state) => state.question);
   const location = useLocation();
   const allAnswer = location.state;
   function getResult(qNo, ans) {

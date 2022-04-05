@@ -1,25 +1,20 @@
 import React from "react";
 import "./index.css";
-const Option = ({ questions, questionIndex, handleChange }) => {
+const Option = ({ questionIndex, handleChange, options }) => {
   return (
     <div>
-      {Object.keys(questions[questionIndex].options).map((option, index) => {
+      {Object.keys(options).map((option) => {
         return (
-          <div className="option" key={index}>
+          <div className="option">
             <input
-              key={questionIndex}
+              key={"key_" + (questionIndex + 1)}
               type="radio"
-              value={questions[questionIndex].options[option]}
-              onChange={(event) =>
-                handleChange(
-                  event,
-                  questionIndex + 1,
-                  questions[questionIndex].question,
-                  questions[questionIndex].answer
-                )
-              }
+              name={"questionNo_" + (questionIndex + 1)}
+              value={option}
+              id={option}
+              onChange={(event) => handleChange(event, questionIndex + 1)}
             ></input>
-            {questions[questionIndex].options[option]}
+            <label htmlFor={option}>{options[option]}</label>
           </div>
         );
       })}
