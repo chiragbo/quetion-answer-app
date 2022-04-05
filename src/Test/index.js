@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import Timer from "../Timer";
-import { useSelector } from "react-redux";
 import "./index.css";
 import { Link } from "react-router-dom";
+import questions from "./questions.json";
 import Question from "../Question";
 import Option from "../Option";
 import ButtonController from "../ButtonController";
+import ResutlChart from "../ResutlChart";
 const Test = () => {
   const [questionIndex, setQuestionNo] = useState(0);
   const [answer, setAnswer] = useState(null);
   const [allAnswer, setAllAnswer] = useState([]);
-  const questions = useSelector((state) => state.question);
 
   function nextQuetion() {
     setQuestionNo(questionIndex + 1);
@@ -27,26 +27,21 @@ const Test = () => {
       : setAllAnswer([...allAnswer, { ...answer }]);
     setAnswer(null);
   }
-  function handleChange(event, questionNo, question, correctAnswer) {
+  function handleChange(event, questionNo) {
     setAnswer({
       questionNo,
-      question,
-      correctAnswer,
-      answer: getAnswerKey(event.target.value),
+      question: questions[questionIndex].question,
+      correctAnswer: questions[questionIndex].answer,
+      answer: event.target.value,
     });
     console.log(answer);
   }
-  function getAnswerKey(ans) {
-    return Object.keys(questions[questionIndex].options).find(
-      (key) => questions[questionIndex].options[key] === ans
-    );
-  }
+
   return (
     <div>
       {questions.length === questionIndex ? (
-        <Link to="/result" state={allAnswer}>
-          <button className="result-button">View Result</button>
-        </Link>
+        // {/* <button className="result-button">View Result</button> */}
+        <ResutlChart allAnswer={allAnswer}></ResutlChart>
       ) : (
         <div className="test">
           <Timer
@@ -57,8 +52,8 @@ const Test = () => {
           ></Timer>
           <Question question={questions[questionIndex].question} />
           <Option
-            questions={questions}
             questionIndex={questionIndex}
+            options={questions[questionIndex].options}
             handleChange={handleChange}
           />
           <ButtonController

@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./index.css";
-
 const Timer = (props) => {
   const { initialMinute, initialSeconds, nextQuetion, questionNo } = props;
   const [minutes, setMinutes] = useState(initialMinute);

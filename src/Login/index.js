@@ -5,10 +5,8 @@ import { connect } from "react-redux";
 
 export const Login = () => {
   const [name, setName] = useState("");
-  const [sessionName, setsessionName] = useState("");
   function startTest() {
     sessionStorage.setItem("name", name);
-    setsessionName(name);
   }
 
   return (
