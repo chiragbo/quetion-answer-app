@@ -1,4 +1,19 @@
 .login button {
   display: block;
   margin: 10px auto;
+  height: 25px;
+  width: 90px;
+}
+.login input {
+  height: 25px;
+}
+a {
+  text-decoration: none;
+}
+.login {
+  margin-top: 230px;
+}
+.login h2 {
+  text-align: center;
+  width: 100%;
 }

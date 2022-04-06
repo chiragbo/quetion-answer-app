@@ -1,11 +1,11 @@
 import React from "react";
 import "./index.css";
-const Option = ({ questionIndex, handleChange, options }) => {
+const Options = ({ questionIndex, handleChange, options }) => {
   return (
     <div>
-      {Object.keys(options).map((option) => {
+      {Object.keys(options).map((option, index) => {
         return (
-          <div className="option">
+          <div className="options" key={index.toString()}>
             <input
               key={"key_" + (questionIndex + 1)}
               type="radio"
@@ -22,4 +22,4 @@ const Option = ({ questionIndex, handleChange, options }) => {
   );
 };
 
-export default Option;
+export default Options;
