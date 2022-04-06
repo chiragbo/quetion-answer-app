@@ -5,7 +5,7 @@ const Options = ({ questionIndex, handleChange, options }) => {
     <div>
       {Object.keys(options).map((option, index) => {
         return (
-          <div className="option" key={index.toString()}>
+          <div className="options" key={index.toString()}>
             <input
               key={"key_" + (questionIndex + 1)}
               type="radio"

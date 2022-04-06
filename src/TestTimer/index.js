@@ -1,14 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./index.css";
-const Timer = (props) => {
-  const { initialMinute, initialSeconds, nextQuetion, questionNo } = props;
+const TestTimer = (props) => {
+  const { initialMinute, initialSeconds, showPieChar } = props;
   const [minutes, setMinutes] = useState(initialMinute);
   const [seconds, setSeconds] = useState(initialSeconds);
-  useEffect(() => {
-    setMinutes(1);
-    setSeconds(0);
-  }, [questionNo]);
   useEffect(() => {
     let myInterval = setInterval(() => {
       if (seconds > 0) {
@@ -17,10 +13,7 @@ const Timer = (props) => {
       if (seconds === 0) {
         if (minutes === 0) {
           clearInterval(myInterval);
-          nextQuetion();
-
-          setMinutes(initialMinute);
-          setSeconds(initialSeconds);
+          showPieChar();
         } else {
           setMinutes(minutes - 1);
           setSeconds(59);
@@ -33,20 +26,22 @@ const Timer = (props) => {
   });
 
   return (
-    <div className="timer">
+    <div className="test-timer">
       {minutes === 0 && seconds === 0 ? (
         <>
-          <h2>0:00</h2>
+          <h1>0:00</h1>
+          <h4>{sessionStorage.getItem("name")}</h4>
         </>
       ) : (
         <>
-          <h2>
+          <h1>
             {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-          </h2>
+          </h1>
+          <h4>{sessionStorage.getItem("name")}</h4>
         </>
       )}
     </div>
   );
 };
 
-export default Timer;
+export default TestTimer;

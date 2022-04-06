@@ -11,7 +11,7 @@
         "2)A variable in JavaScript declared with which of the following keyword?",
       "options": { "a": "new", "b": "int", "c": "string", "d": "var" },
       "answer": "d"
-    },
+    }, 
     {
       "questionNo": 3,
       "question":

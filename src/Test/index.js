@@ -1,47 +1,53 @@
 import React, { useState } from "react";
 import Timer from "../Timer";
 import "./index.css";
-import { Link } from "react-router-dom";
 import questions from "./questions.json";
 import Question from "../Question";
 import Options from "../Options";
-import ButtonController from "../ButtonController";
-import ResutlChart from "../ResutlChart";
+import { useNavigate } from "react-router-dom";
+import TestTimer from "../TestTimer";
+import { confirm } from "react-confirm-box";
 const Test = () => {
   const [questionIndex, setQuestionNo] = useState(0);
-  const [answer, setAnswer] = useState(null);
-  const [allAnswer, setAllAnswer] = useState([]);
-
+  const [answers, setAnswers] = useState({});
+  const navigate = useNavigate();
+  const optionsWithLabelChange = {
+    closeOnOverlayClick: false,
+    labels: {
+      confirmable: "Yes",
+      cancellable: "No",
+    },
+  };
   function nextQuestion() {
     setQuestionNo(questionIndex + 1);
-    answer === null
-      ? setAllAnswer([
-          ...allAnswer,
-          {
-            questionNo: questionIndex + 1,
-            question: questions[questionIndex].question,
-            correctAnswer: questions[questionIndex].answer,
-            answer: "NA",
-          },
-        ])
-      : setAllAnswer([...allAnswer, { ...answer }]);
-    setAnswer(null);
   }
-  function handleChange(event, questionNo) {
-    setAnswer({
-      questionNo,
-      question: questions[questionIndex].question,
-      correctAnswer: questions[questionIndex].answer,
-      answer: event.target.value,
+  function handleAnswerSelection(event, questionNo) {
+    setAnswers({
+      ...answers,
+      [questionNo]: event.target.value,
     });
   }
+  function showPieChar() {
+    navigate("/result-pie", { state: answers });
+  }
+  const onClick = async (options) => {
+    const result = await confirm("Do you want to sumit test?", options);
+    if (result) {
+      showPieChar();
+    }
+  };
 
   return (
     <div>
       {questions.length === questionIndex ? (
-        <ResutlChart allAnswer={allAnswer}></ResutlChart>
+        showPieChar()
       ) : (
         <div className="test">
+          <TestTimer
+            initialMinute={1}
+            initialSeconds={0}
+            showPieChar={showPieChar}
+          ></TestTimer>
           <Timer
             initialMinute={1}
             initialSeconds={0}
@@ -52,13 +58,20 @@ const Test = () => {
           <Options
             questionIndex={questionIndex}
             options={questions[questionIndex].options}
-            handleChange={handleChange}
+            handleChange={handleAnswerSelection}
           />
-          <ButtonController
-            noOfQuestions={questions.length}
-            questionIndex={questionIndex}
-            nextQuetion={nextQuestion}
-          />
+          <div className="test-buttons">
+            {questions.length - 1 > questionIndex && (
+              <button onClick={() => nextQuestion()}>Next</button>
+            )}
+            <button
+              onClick={() => {
+                onClick(optionsWithLabelChange);
+              }}
+            >
+              Submit
+            </button>
+          </div>
         </div>
       )}
     </div>
