@@ -4,9 +4,9 @@ import "./index.css";
 import App from "./App";
 
 import { Provider } from "react-redux";
-import store from "./state/store";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Test from "./Test";
+import store from "./store";
 
 import Resutl from "./Result";
 import ResutlChart from "./ResutlChart";

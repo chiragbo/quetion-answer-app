@@ -1,9 +1,8 @@
 import CanvasJSReact from "../assets/canvasjs.react";
-import { Component } from "react";
-import { Link } from "react-router-dom";
-import React, { useCallback } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import questions from "../Test/questions.json";
+import { connect } from "react-redux";
 import "./index.css";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const getTotalCorrectAnswers = (answers) => {
@@ -11,8 +10,8 @@ const getTotalCorrectAnswers = (answers) => {
 
   for (const [question, answer] of Object.entries(answers)) {
     if (
-      questions.find(({ questionNo }) => questionNo == question).answer ===
-      answer
+      questions.find(({ questionNo }) => questionNo.toString() === question)
+        .answer === answer
     ) {
       correctAnswersCount++;
     }
@@ -21,14 +20,13 @@ const getTotalCorrectAnswers = (answers) => {
   return correctAnswersCount;
 };
 
-function ResutlChart() {
+function ResutlChart(props) {
   const navigate = useNavigate();
   function handleOnClick() {
-    navigate("/result", { state: answers });
+    navigate("/result");
   }
 
-  const location = useLocation();
-  const answers = location.state;
+  const answers = props.state;
   const noOfQuestions = Object.keys(questions).length;
   let percentage = 0;
   noOfQuestions === 0
@@ -57,4 +55,7 @@ function ResutlChart() {
     </div>
   );
 }
-export default ResutlChart;
+const mapStateToProps = (state) => {
+  return { state };
+};
+export default connect(mapStateToProps)(ResutlChart);

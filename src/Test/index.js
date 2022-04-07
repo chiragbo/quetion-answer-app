@@ -7,9 +7,9 @@ import Options from "../Options";
 import { useNavigate } from "react-router-dom";
 import TestTimer from "../TestTimer";
 import { confirm } from "react-confirm-box";
-const Test = () => {
+import { connect } from "react-redux";
+const Test = (props) => {
   const [questionIndex, setQuestionNo] = useState(0);
-  const [answers, setAnswers] = useState({});
   const navigate = useNavigate();
   const optionsWithLabelChange = {
     closeOnOverlayClick: false,
@@ -22,13 +22,13 @@ const Test = () => {
     setQuestionNo(questionIndex + 1);
   }
   function handleAnswerSelection(event, questionNo) {
-    setAnswers({
-      ...answers,
-      [questionNo]: event.target.value,
+    props.dispatch({
+      type: "ADD_ANSWERS",
+      payload: { [questionNo]: event.target.value },
     });
   }
   function showPieChar() {
-    navigate("/result-pie", { state: answers });
+    navigate("/result-pie");
   }
   const onClick = async (options) => {
     const result = await confirm("Do you want to sumit test?", options);
@@ -44,7 +44,7 @@ const Test = () => {
       ) : (
         <div className="test">
           <TestTimer
-            initialMinute={1}
+            initialMinute={10}
             initialSeconds={0}
             showPieChar={showPieChar}
           ></TestTimer>
@@ -77,5 +77,9 @@ const Test = () => {
     </div>
   );
 };
-
-export default Test;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch,
+  };
+};
+export default connect(mapDispatchToProps)(Test);
