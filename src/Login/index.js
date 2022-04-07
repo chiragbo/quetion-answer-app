@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./index.css";
-import { connect } from "react-redux";
 
 export const Login = () => {
   const [name, setName] = useState("");
@@ -16,7 +15,7 @@ export const Login = () => {
 
   return (
     <div className="login">
-      <h2>Test for JavaScript</h2>
+      <h2>JavaScript Test</h2>
       <input
         placeholder="Enter Name"
         type="input"
@@ -27,10 +26,4 @@ export const Login = () => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    number: state.number,
-  };
-};
-
-export default connect(mapStateToProps)(Login);
+export default Login;

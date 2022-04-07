@@ -32,6 +32,7 @@ table td {
   background-color: #04aa6d;
   color: white;
 }
-h2 {
+.resutl h2 {
   text-align: center;
+  width: 100%;
 }
