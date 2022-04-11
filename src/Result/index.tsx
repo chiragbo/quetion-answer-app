@@ -1,8 +1,18 @@
 import React from "react";
-import questions from "../Test//questions.json";
+import questions from "../Test/questions.json";
 import "./index.css";
 import { connect } from "react-redux";
-class Resutl extends React.Component {
+type MyProps = {
+  state:string;
+}
+interface Options
+{
+  a:string,
+  b:string,
+  c:string,
+  d:string
+}
+class Resutl extends React.Component<MyProps> {
   render() {
     const answers = this.props.state;
     return (
@@ -16,7 +26,7 @@ class Resutl extends React.Component {
               <th>Correct Answer</th>
             </tr>
             {questions.map(
-              ({ questionNo, question, options, answer }, index) => {
+              ({ questionNo, question, options:Options, answer }, index) => {
                 return (
                   //
                   <tr key={index.toString()}>
@@ -43,7 +53,7 @@ class Resutl extends React.Component {
     );
   }
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = (state:string) => {
   return { state };
 };
 export default connect(mapStateToProps)(Resutl);

@@ -1,7 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./index.css";
-const Timer = (props) => {
+interface MyProps {
+  initialMinute: number;
+  initialSeconds: number;
+  nextQuetion: Function;
+  questionNo: number;
+}
+const Timer: React.FC<MyProps> = (props) => {
   const { initialMinute, initialSeconds, nextQuetion, questionNo } = props;
   const [minutes, setMinutes] = useState(initialMinute);
   const [seconds, setSeconds] = useState(initialSeconds);

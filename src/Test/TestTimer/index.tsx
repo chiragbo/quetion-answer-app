@@ -1,7 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./index.css";
-const TestTimer = (props) => {
+interface MyProps {
+  initialMinute: number;
+  initialSeconds: number;
+  showPieChar: Function;
+}
+const TestTimer:React.FC<MyProps> = (props) => {
   const { initialMinute, initialSeconds, showPieChar } = props;
   const [minutes, setMinutes] = useState(initialMinute);
   const [seconds, setSeconds] = useState(initialSeconds);

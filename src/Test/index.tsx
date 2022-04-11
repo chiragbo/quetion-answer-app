@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import Timer from "../Timer";
-import "./index.css";
-import questions from "./questions.json";
-import Question from "../Question";
-import Options from "../Options";
-import { useNavigate } from "react-router-dom";
-import TestTimer from "../TestTimer";
 import { confirm } from "react-confirm-box";
 import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import "./index.css";
+import questions from "./questions.json";
+import Question from "./Question";
+import Options from "./Options";
+import TestTimer from "./TestTimer";
+import Timer from "./Timer";
 const Test = (props) => {
   const [questionIndex, setQuestionNo] = useState(0);
   const navigate = useNavigate();
