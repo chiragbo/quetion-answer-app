@@ -3,13 +3,14 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 
+
 import { Provider } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Test from "./Test";
 import store from "./store";
 
 import Resutl from "./Result";
-import ResutlChart from "./ResutlChart";
+import ResutlChart from "./ResutlChart/";
 
 ReactDOM.render(
   <BrowserRouter>
