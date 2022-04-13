@@ -26,7 +26,7 @@ class Resutl extends React.Component<MyProps> {
               <th>Correct Answer</th>
             </tr>
             {questions.map(
-              ({ questionNo, question, options:Options, answer }, index) => {
+              ({ questionNo, question, options, answer }, index) => {
                 return (
                   //
                   <tr key={index.toString()}>

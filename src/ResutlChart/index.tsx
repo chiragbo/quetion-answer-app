@@ -5,7 +5,7 @@ import questions from "../Test/questions.json";
 import { connect } from "react-redux";
 import "./index.css";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-const getTotalCorrectAnswers = (answers) => {
+const getTotalCorrectAnswers = (answers: number) => {
   let correctAnswersCount = 0;
 
   for (const [question, answer] of Object.entries(answers)) {

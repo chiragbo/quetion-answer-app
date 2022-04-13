@@ -1,9 +1,21 @@
 import React from "react";
 import "./index.css";
-const Options = ({ questionIndex, handleChange, options }) => {
+interface OptionsProps {
+  questionIndex: number;
+  options: { a: string; b: string; c: string; d: string };
+  handleChange: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    questionIndex: number
+  ) => void;
+}
+const Options: React.FC<OptionsProps> = ({
+  questionIndex,
+  options,
+  handleChange,
+}) => {
   return (
     <div>
-      {Object.keys(options).map((option, index) => {
+      {Object.keys(options).map((option:string, index:number ) => {
         return (
           <div className="options" key={index.toString()}>
             <input
@@ -14,7 +26,7 @@ const Options = ({ questionIndex, handleChange, options }) => {
               id={option}
               onChange={(event) => handleChange(event, questionIndex + 1)}
             ></input>
-            <label htmlFor={option}>{options[option]}</label>
+            <label htmlFor={option}>{options['a']}</label>
           </div>
         );
       })}
