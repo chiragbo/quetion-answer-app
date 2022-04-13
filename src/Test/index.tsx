@@ -8,7 +8,11 @@ import Question from "./Question";
 import Options from "./Options";
 import TestTimer from "./TestTimer";
 import Timer from "./Timer";
-const Test = (props) => {
+import { Dispatch } from "redux";
+interface TestProps {
+
+}
+const Test: React.FC<TestProps> = (props:DispatchProps) => {
   const [questionIndex, setQuestionNo] = useState(0);
   const navigate = useNavigate();
   const optionsWithLabelChange = {
@@ -18,10 +22,20 @@ const Test = (props) => {
       cancellable: "No",
     },
   };
+  interface optionsType {
+    closeOnOverlayClick: boolean;
+    labels: {
+      confirmable: string;
+      cancellable: string;
+    };
+  }
   function nextQuestion() {
     setQuestionNo(questionIndex + 1);
   }
-  function handleAnswerSelection(event, questionNo) {
+  function handleAnswerSelection(
+    event: React.ChangeEvent<HTMLInputElement>,
+    questionNo: number
+  ) {
     props.dispatch({
       type: "ADD_ANSWERS",
       payload: { [questionNo]: event.target.value },
@@ -30,7 +44,7 @@ const Test = (props) => {
   function showPieChar() {
     navigate("/result-pie");
   }
-  const onClick = async (options) => {
+  const onClick = async (options: optionsType) => {
     const result = await confirm("Do you want to sumit test?", options);
     if (result) {
       showPieChar();
@@ -40,7 +54,7 @@ const Test = (props) => {
   return (
     <div>
       {questions.length === questionIndex ? (
-        showPieChar()
+        <>{showPieChar()}</>
       ) : (
         <div className="test">
           <TestTimer
@@ -77,9 +91,12 @@ const Test = (props) => {
     </div>
   );
 };
-const mapDispatchToProps = (dispatch) => {
+interface DispatchProps {
+  dispatch: () => void
+}
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     dispatch,
   };
 };
-export default connect(mapDispatchToProps)(Test);
+export default connect<DispatchProps>(mapDispatchToProps)(Test);

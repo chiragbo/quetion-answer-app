@@ -1,6 +1,9 @@
 import React from "react";
 import "./index.css";
-const Question = ({ question }) => {
+type QuestionProps={
+  question:string
+}
+const Question:React.FC<QuestionProps> = ({ question }) => {
   return <div className="question">{question}</div>;
 };
 
